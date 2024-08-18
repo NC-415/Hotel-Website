@@ -1,22 +1,11 @@
-import { Routes, Route } from 'react-router-dom'
-import HomePage from '../pages/Home';
-// import Weddings from './Weddings'
-// import Accomadation from './Accomadation'
-// import Events from './pages/Events'
-// import Offers from './pages/Offers'
-
+import { Route, Routes } from "react-router-dom"
+import Home from "./pages/Home"
 
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<HomePage />} />
-      {/* <Route path='/' element={<Weddings />} />
-      <Route path='/' element={<Accomadation />} />
-      <Route path='/' element={<Events />} />
-      <Route path='/' element={<Offers />} /> */}
-    </Routes>
-
-  );
+      <Route path="/" element={<Home />} />
+    </Routes>)
 }
 
 export default App
