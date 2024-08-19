@@ -32,7 +32,7 @@ const Header = () => {
     }, []);
 
     return (
-        <Disclosure as="nav" className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-pcolor' : 'bg-transparent'} text-white`}>
+        <Disclosure as="nav" className={`fixed top-0 left-0 w-full z-50 transition-all duration-1000 ${isScrolled ? 'bg-pcolor fixed' : 'bg-transparent'}`}>
             <div className="relative flex items-center justify-between h-16">
 
                 {/* Mobile menu button and logo container */}
