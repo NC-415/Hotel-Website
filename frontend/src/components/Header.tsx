@@ -2,6 +2,7 @@ import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 
+
 // Navigation links
 const navigation = [
     { name: 'Home', href: '#', current: true },
