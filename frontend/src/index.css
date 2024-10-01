@@ -9,4 +9,30 @@
     --acolor: #F3EDE6; /* Example accent color (red) */
     --bgcolor: #f5f5f5; /* Example background color */
   }
+
+  /* In your global CSS file */
+:h1 {
+  font: 300 text-2xl font-serif mb-2 text-gray-800;
+}
+
+:h {
+  font: 200 text-2xl font-serif mb-2 text-gray-800;
+}
+
+p {
+  font: 200 text-sm font-serif mb-2 text-gray-800;
+}
+
+
+/* In your global CSS or component CSS */
+.bg-s-color {
+  background-color: #2D2C2C; 
+}
+
+
+.bg-p-color {
+  background-color: #BF9766;
+}
+
+
   
