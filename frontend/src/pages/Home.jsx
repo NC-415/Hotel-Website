@@ -1,13 +1,10 @@
-import Header from "../components/Header";
-
 
 const Home = () => {
     return (
         <div className="bg-gray-100">
-            <Header />
 
             <section className="relative">
-                <img src="/images/bg.jpg" alt="Hotel Exterior" className="w-full h-96 object-cover" />
+                <img src="/images/bg.jpg" alt="Hotel Exterior" className="w-full h-screen object-cover" />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <div className="text-center text-white">
                         <h2 className="text-3xl font-bold mb-4">Your lavish home away from home</h2>
