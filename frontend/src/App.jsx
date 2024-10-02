@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Accomadation from "./pages/Accomadation";
 import RoomDetails from "./pages/RoomDetails";
+import AddRooms from "./pages/AddRooms";
+
 
 const App = () => {
   return (
@@ -17,8 +19,14 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/accommodation" element={<Accomadation />} />
         <Route path="/roomDetails/:roomId" element={<RoomDetails />} />
+
+
       </Routes>
       <Footer />
+      <Routes>
+        <Route path="/add-rooms" element={<AddRooms />} />
+
+      </Routes>
     </div>
   );
 };
