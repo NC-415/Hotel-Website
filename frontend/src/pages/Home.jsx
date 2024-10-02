@@ -1,8 +1,32 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import WeddingPackages from '../components/WeddingPackages';
+
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 3;
+
+  const [rooms, setRooms] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+      axios
+          .get('http://localhost:5555/rooms')
+          .then((response) => {
+              setRooms(response.data.data);
+          })
+          .catch((error) => {
+              console.log(error);
+              setError("Failed to load rooms");
+          });
+  }, []);
+
+  const handleFindOutMore = (roomId) => {
+      navigate(`/roomDetails/${roomId}`); // Navigate to the room details page
+  };
 
   const nextSlide = () => {
     setCurrentSlide(currentSlide === totalSlides - 1 ? 0 : currentSlide + 1);
@@ -34,6 +58,18 @@ const Home = () => {
         </div>
       </section>
 
+      <section className="text-center py-14 px-28 mx-5">
+                
+                <h1 className="font-serif italic text-4xl md:text-4xl tracking-wide text-gray-800 mb-6">
+                Your lavish home away from home
+                </h1>
+                <p className="text-gray-500 text-base md:text-lg leading-relaxed">
+                Nestled in the vibrant city of [Your City], Hotel Suneragira is your gateway to a world of comfort and elegance. While we may not offer
+ a sea view, our exceptional service and luxurious amenities ensure that your stay with us will be nothing short of extraordinary. 
+Located just moments away from the city's bustling attractions, Hotel Suneragira offers a peaceful oasis where you can relax and unwind
+Whether you're traveling for business or leisure. </p>
+            </section>
+
       {/* Featured Room Section */}
       <section className="container py-20 mx-auto p-4">
         <div className="flex flex-col md:flex-row backdrop-blur-sm shadow-lg overflow-hidden">
@@ -50,33 +86,14 @@ const Home = () => {
 
       {/* Wedding Package Section */}
       <section className="container mx-auto py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold">Featured Wedding Packages</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/all.jpg" alt="Golden Package" className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Golden Package</h3>
-              <a href="#" className="text-pcolor mt-4 block">Find out more...</a>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/all.jpg" alt="Premium Package" className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Premium Package</h3>
-              <a href="#" className="text-pcolor mt-4 block">Find out more...</a>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/all.jpg" alt="Silver Package" className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Silver Package</h3>
-              <a href="#" className="text-pcolor mt-4 block">Find out more...</a>
-            </div>
-          </div>
-        </div>
+        
+
+        <WeddingPackages/>
+
+     
+         
       </section>
+      
 
 {/* Carousel */}
 <section className="container mx-auto py-12">
@@ -131,38 +148,37 @@ const Home = () => {
     
 
 </div>
-      <section className="container mx-auto py-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold">A Slice of Heaven</h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Nestled in the vibrant city of Kandy, enjoy our luxurious and tranquil accommodations.</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/hotel-room.jpg" alt="Single Room" className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Single Room</h3>
-              <p className="text-gray-600">Comfort and convenience for solo travelers.</p>
-              <a href="#" className="text-pcolor mt-4 block">Learn More</a>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/room1.jpeg" alt="Double Room" className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Double Room</h3>
-              <p className="text-gray-600">Ideal for couples.</p>
-              <a href="#" className="text-pcolor mt-4 block">Learn More</a>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/room2.jpeg" alt="Suite" className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Suite</h3>
-              <p className="text-gray-600">The ultimate in luxury and space.</p>
-              <a href="#" className="text-pcolor mt-4 block">Learn More</a>
-            </div>
-          </div>
-        </div>
-      </section>
+<h2 className="text-center text-4xl font-serif text-gray-800 mb-10">ROOMS & RATES</h2>
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-20">
+                {error ? (
+                    <div className="col-span-full text-center text-red-500">
+                        {error}
+                    </div>
+                ) : (
+                    rooms.map((room) => (
+                        <div key={room._id} className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img
+                                className="w-full h-48 object-cover"
+                                src={room.images[0]} // Assuming the first image in the array
+                                alt={room.roomType}
+                            />
+                            <div className="p-6">
+                                <h2 className="text-2xl font-serif text-pcolor mb-2">{room.roomType}</h2>
+                                <p className="text-gray-600 mb-6">{room.description}</p>
+                                <div className="flex justify-between text-gray-800 mb-4">
+                                    {/* ... [occupancy and size info code] ... */}
+                                </div>
+                                <button
+                                    className="font-sans w-full bg-transparent border border-gray-500 text-scolor py-2 px-4 rounded hover:bg-scolor hover:text-white hover:border-white"
+                                    onClick={() => handleFindOutMore(room._id)} // Call function on button click
+                                >
+                                    Find Out More
+                                </button>
+                            </div>
+                        </div>
+                    ))
+                )}
+            </section>
 
       {/*Menu */}
       <div class="min-h-screen flex flex-col p-8 sm:p-16 md:p-24 justify-center bg-white">
@@ -181,9 +197,9 @@ const Home = () => {
         </div>
         <div class="p-6 bg-grey">
           <div class="leading-relaxed">
-          <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-cream-500 to-brown-200 mb-4 ">Menu</h1>
+          <h1 className="text-4xl font-serif">Menu</h1>
             <h2 class="leading-tight text-4xl font">Satisfy your cravings</h2>
-            <p cclassName="text-base text-gray-500 leading-relaxed">Embark on a culinary journey and discover a world of delectable dishes from Sri Lanka and beyond. 
+            <p className="text-base text-gray-500 leading-relaxed">Embark on a culinary journey and discover a world of delectable dishes from Sri Lanka and beyond. 
               Immerse yourself in the exquisite flavours and let your taste buds explode with every bite. 
               Head to our cosy restaurants and indulge in a wide range of freshly prepared dishes or beverages of your choice.</p>
             <p><a href="#" class="text-white bg-scolor hover:bg-pcolor focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-scolor dark:hover:bg-pcolor focus:outline-none dark:focus:ring-scolor">Find out more</a></p>
@@ -204,16 +220,16 @@ const Home = () => {
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <img src="/images/chiken.jpg" alt="Single Room" className="w-full h-48 object-cover" />
+          <img src="/images/italiyan.jpg" alt="Single Room" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">CHIKEN FLAVOURS</h3>
+              <h3 className="text-2xl font-bold mb-2">Italiyan Food</h3>
               <a href="#" class="text-white bg-scolor hover:bg-pcolor focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-scolor dark:hover:bg-pcolor focus:outline-none dark:focus:ring-pcolor">$2 P/PORTION</a>
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          <img src="/images/chiken.jpg" alt="Single Room" className="w-full h-48 object-cover" />
+          <img src="/images/kiribath.jpg" alt="Single Room" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">CHIKEN FLAVOURS</h3>
+              <h3 className="text-2xl font-bold mb-2">Milk Rice</h3>
               <a href="#" class="text-white bg-scolor hover:bg-pcolor focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-scolor dark:hover:bg-pcolor focus:outline-none dark:focus:ring-pcolor">$2 P/PORTION</a>
             </div>
           </div>
@@ -228,27 +244,27 @@ const Home = () => {
       {/* Places to Visit Section */}
       <section className="container mx-auto py-12">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold">Places You Can Visit Near Our Hotel</h2>
+          <h2 className="text-4xl font-serif">Places You Can Visit Near Our Hotel</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/kandy.jpg" alt="Kandy Lake" className="w-full h-48 object-cover" />
+            <img src="/images/sigiria.jpg" alt="Kandy Lake" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Kandy Lake</h3>
+              <h3 className="text-2xl font mb-2">Sigiriya</h3>
               
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <img src="/images/kandy.jpg" alt="Temple of the Tooth" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Temple of the Tooth</h3>
+              <h3 className="text-2xl font mb-2">Temple of the Tooth</h3>
               
             </div>
           </div>
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img src="/images/kandy.jpg" alt="Botanical Garden" className="w-full h-48 object-cover" />
+            <img src="/images/dambulla.jpg" alt="Botanical Garden" className="w-full h-48 object-cover" />
             <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2">Botanical Garden</h3>
+              <h3 className="text-2xl font mb-2">Dambulla Cave Temple</h3>
             </div>
           </div>
         </div>
