@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import WeddingPage from "./pages/WeddingPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Accomadation from "./pages/Accomadation";
@@ -14,7 +15,7 @@ import AdminRoom from "./pages/AdminRoom";
 // Layout for the Main Website (with Header and Footer)
 const MainLayout = ({ children }) => {
   return (
-    <div>
+    <>
       <Header />
       {children}
       <Footer />
@@ -51,6 +52,15 @@ const App = () => {
         <Route path="/admin-rooms" element={<AdminLayout><AdminRoom /></AdminLayout>} />
       </Routes>
     </div>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/weddingPage" element={<WeddingPage />} />
+        <Route path="/accommodation" element={<Accomadation />} />
+        <Route path="/roomDetails/:roomId" element={<RoomDetails />} />
+      </Routes>
+      <Footer />
+    </>
   );
 };
 

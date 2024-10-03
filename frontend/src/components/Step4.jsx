@@ -5,7 +5,11 @@ const Payment = () => {
     <div>
       <h2 className="text-2xl font-bold mb-6">PAYMENT</h2>
       {/* Payment UI */}
+      <title>
+        
+      </title>
     </div>
+    
   );
 };
 

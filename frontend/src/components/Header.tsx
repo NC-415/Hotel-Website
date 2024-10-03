@@ -3,6 +3,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+
 // Navigation links
 const navigation = [
     { name: 'Home', href: '/', current: false },
